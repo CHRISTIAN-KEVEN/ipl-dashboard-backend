@@ -5,8 +5,8 @@
  */
 package Utilities;
 
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import org.json.JSONObject;
+
 
 /**
  *
@@ -16,12 +16,10 @@ public class ResponseObjectBuilder {
     
     public static <T> String dataReturn(T obj) {
         JSONObject json = new JSONObject(); 
-        try {
+     
         json.put("erc", 1)
             .put("data", obj);
-        }catch(JSONException ex) {
-            ex.printStackTrace();
-        }
+        
       
         return json.toString();
     }

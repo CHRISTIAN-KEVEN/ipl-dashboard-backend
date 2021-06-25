@@ -6,6 +6,7 @@
 package com.example.ipldashboardbackend.repositories;
 
 import com.example.ipldashboardbackend.models.Match;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;  
 import org.springframework.data.domain.PageRequest;
@@ -23,4 +24,8 @@ public interface MatchRepository extends CrudRepository<Match, Long>{
     default public Optional<List<Match>> getLatestMatches(String teamName, int count) {
         return this.findByTeam1OrTeam2OrderByDateDesc(teamName, teamName, PageRequest.of(0, count));
     }
+    
+    Optional<List<Match>> findByTeam1AndDateBetweenOrTeam2AndDateBetweenOrderByDateDesc(
+            String team1, LocalDate date1, LocalDate date2, String team2, LocalDate date3, LocalDate date4
+    );
 }

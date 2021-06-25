@@ -31,19 +31,21 @@ public class TeamService {;
     
     public String getTeam(String teamName){
         Optional<Team> optionalTeam = teamRepo.findByTeamName(teamName);
+        System.out.println("TEAM NAME " + optionalTeam.get().getTeamName());
         JSONObject json = new JSONObject();
         if(optionalTeam.isPresent()) {  
             Team team = optionalTeam.get();
             json.put("id", team.getId())
-                    .put("teamName", team.getTeamName())
-                    .put("totalMatches", team.getTotalMatches())
-                    .put("totalWins", team.getTotalWins());
+                .put("teamName", team.getTeamName())
+                .put("totalMatches", team.getTotalMatches())
+                .put("totalWins", team.getTotalWins());
             List<JSONObject> matches = new ArrayList();
             matchRepo.getLatestMatches(teamName, 4).ifPresent(match -> match.forEach(m -> matches.add(Utils.formMatchObject(m))));
             
             json.put("matches", matches);
                     
         }
+        System.out.println("team json object " + json);
         return ResponseObjectBuilder.dataReturn(json);
     }
 }
